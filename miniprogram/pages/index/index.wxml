@@ -1,0 +1,161 @@
+<!--index.wxml-->
+
+<import src="/wxSearch/wxSearch.wxml"/>
+
+  <!-- 用户 openid -->
+  <!-- <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+    <view>
+      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+    </view>
+  </view> -->
+
+
+  <!-- 上传图片 -->
+  <!-- <view class="uploader">
+    <view class="uploader-text" bindtap="doUpload">
+      <text>上传图片</text>
+    </view>
+    <view class="uploader-container" wx:if="{{imgUrl}}">
+      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+    </view>
+  </view> -->
+
+
+  <!-- 操作数据库 -->
+  <!-- <view class="uploader">
+    <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
+      <text>前端操作数据库</text>
+    </navigator>
+  </view> -->
+
+  <!-- 新建云函数 -->
+  <!-- <view class="uploader">
+    <navigator url="../addFunction/addFunction" open-type="navigate" class="uploader-text">
+      <text>快速新建云函数</text>
+    </navigator>
+  </view> -->
+
+<!--搜索框-->
+<view class="wxSearch-section">
+  <view class="wxSearch-pancel">
+    <input 
+    bindinput="wxSearchInput" 
+    bindfocus="wxSearchFocus" 
+    value="{{wxSearchData.value}}" 
+    bindblur="wxSearchBlur" 
+    class="wxSearch-input" 
+    placeholder='Home'/>
+    <view class="placeholder">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+    </view>
+    <!--商品分类按钮-->
+    <!-- <button class="wxSearch-button" bindtap="onAddHotsData">
+      <text> Categories </text>
+    </button>  -->
+
+  </view>
+</view>
+
+<template is="wxSearch" data="{{wxSearchData}}"/>
+
+<!--导航栏-->  
+<view class="navbar">  
+  <text 
+  wx:for="{{navbar}}" 
+  data-idx="{{index}}" 
+  class="item {{currentTab==index ? 'active' : ''}}" 
+  wx:key="unique" 
+  bindtap="navbarTap">{{item}}
+  </text>  
+</view>
+
+<!--实时热销榜 start-->
+<view class="hots-container"> 
+  <view class="category-title">
+    <text class="title">热销榜</text>
+    <view class="line_name">
+      <text>每15分钟更新一次</text>
+      <text>查看全部 ></text>
+    </view>
+  </view>  
+  <scroll-view scroll-x="true">
+      <view class="goods">
+         <block wx:for-items="{{goodsHotItems}}" wx:key="name">
+          <view 
+          class="goods-item" 
+          catchtap="catchTapCategory" 
+          data-type="{{item.name}}" 
+          data-typeid="{{item.typeId}}">
+              <image src="{{item.imageurl}}" class="goods-image" />   
+            <text>{{item.name}}</text>
+            <p>￥{{item.newprice}}</p>  
+          </view>
+        </block> 
+      </view>
+    </scroll-view>   
+</view> 
+<!--实时热销榜 end-->
+
+<!--福利专场 start-->
+
+<view class="welfare-container"> 
+  <view class="category-title">
+    <text class="title">福利专场</text>
+    <view class="line_name">
+      <text>每天早10晚8准时上新</text>
+    </view>
+  </view>  
+  <scroll-view scroll-y="true">
+      <view class="welfares">
+         <block wx:for-items="{{goodsWelfareItems}}" wx:key="name">
+          <view class="welfares-good" catchtap="catchTapCategory" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+            <view>
+              <image src="{{item.imageurl}}" class="welfares-image" mode="widthFix"/> 
+            </view>
+            <view class="product-name">
+              {{item.name}}
+            </view>
+            <view class="product-price-wrap">
+              <p class="product-price-new">￥{{item.newprice}}</p>  
+              <p class="product-price-old">￥{{item.oldprice}}</p> 
+              <p class="discount">{{item.discount}}折</p>  
+            </view>
+            
+          </view>
+        </block> 
+      </view>
+  </scroll-view>  
+</view> 
+<!--福利专场 end-->
+
+<!--下拉加载-->
+<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">努力加载中</view>
+</view> 
+
+<!--购物车-->
+<view class='tab-bar'>
+      <!-- <image src="../../images/bottomNav/mine_select.png"/> 
+      <p></p> -->
+      <image src="../../images/cart.png"/> 
+</view>
+
+<!-- <view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view> -->
