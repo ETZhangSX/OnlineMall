@@ -1,71 +1,79 @@
 <!--pages/detail/detail.wxml-->
+<import src="../template/template.wxml" />
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-  <block wx:for="{{imgUrls}}">
+  <block wx:for="{{goods.imgUrls}}">
     <swiper-item>
-        <image src="{{item}}" data-src="{{item}}" bindtap="previewImage" mode="widthFix"></image>
+      <image src="{{item}}" data-src="{{item}}" bindtap="previewImage" mode="widthFix"></image>
     </swiper-item>
   </block>
 </swiper>
 
 <!--图文详情按钮-->
 <view class='tab-bar-detail'>
-      <text>图文</text>
-      <text>详情</text>
-</view> 
+  <text>图文</text>
+  <text>详情</text>
+</view>
 
 <view class="product-price-wrap">
- <view>
-    <p class="product-price-new">￥7935.84</p>  
-    <p class="product-price-old">原价￥9018.00</p> 
-    <p class="discount">8.8折</p>
+  <view class="product-price">
+    <p class="product-price-new">￥{{goods.price}}</p>
+    <p class="product-price-old">原价￥{{goods.privilegePrice}}</p>
+    <p class="discount">{{goods.discount}}折</p>
   </view>
-  <view>
-    <image src="../../images/share.png" />  
-  </view>   
+  <!-- <view class="share-icon">
+    <image  src="../../images/share.png" />  
+  </view>    -->
 </view>
+
+<!--商品名字-->
 <view class="product-name-wrap">
-  <text>Apple iPhone X手机 苹果x 全网通4G 全面屏手机 银色 官方标配 256G</text>
+  <text>{{goods.title}}</text>
 </view>
 
-<view class="details"> 
-   <scroll-view scroll-y="true"> 
-       <block wx:for-items="{{detailImg}}" wx:key="name">
-       <image class="image_detail" src="{{item}}" mode="widthFix"/> 
-    </block>  
-   </scroll-view> 
- </view> 
+<!--商品图文详情-->
+<view class="details">
+  <scroll-view scroll-y="true">
+    <block wx:for-items="{{goods.detailImg}}" wx:key="name">
+      <image class="image_detail" src="{{item}}" mode="widthFix" />
+    </block>
+  </scroll-view>
+</view>
 
-  <!-- 底部悬浮栏 -->
+<!-- 底部悬浮栏 -->
 <view class="detail-nav">
-  <image bindtap="toCar" src="../../images/cart.png" />  
-  <view class="line_nav"></view>
-   <image bindtap="addLike" src="{{isLike?'../../images/enshrine_select.png':'../../images/enshrine.png'}}" /> 
-  <button data-goodid="1"  class="button-green" bindtap="toggleDialog" >加入购物车</button>
+  <view class="line_nav">
+    <image bindtap="toCar" class="cart" src="../../images/cart.png" />
+  </view>
+  <view class="line_nav">
+    <image bindtap="addLike" class="like" src="{{isLike?'../../images/enshrine_select.png':'../../images/enshrine.png'}}" />
+  </view>
+  <button data-goodid="1" class="button-green" bindtap="toggleDialog">加入购物车</button>
   <button class="button-red" bindtap="immeBuy" formType="submit">立即购买</button>
 </view>
 
 <!--加入购物车-->
-<import src="../template/template.wxml" />
+
 <view class="dialog {{ showDialog ? 'dialog--show' : '' }}">
-      <view class="dialog__mask" bindtap="toggleDialog" />
-      <view class="dialog__container">
-        <view class="row">
-          <icon bindtap="closeDialog" class="image-close" type="cancel" size="25"/>
-          <image class="image-sku" src="https://m.360buyimg.com/n12/jfs/t11317/108/1080677336/325163/f4c2a03a/59fd8b17Nbe2fcca3.jpg!q70.jpg"></image>
-          <view class="column">
-            <text class="sku-price">￥7935.84</text>
-            <text class="sku-title">库存20件</text>
-            <text class="sku-title">商品编码：1456778788</text>
-          </view>
-        </view>
-        <text class="border-line"></text>
-        <view class="row">
-          <text >购买数量</text>
-          <view class="quantity-position">
-              <template is="quantity" data="{{ ...quantity1}}" />  
-          </view>
-        </view>
-        <text class="border-line"></text>
-        <button data-goodid="1" class="button-addCar" bindtap="addCar" formType="submit">确定</button>
+  <view class="dialog__mask" bindtap="toggleDialog" />
+  <view class="dialog__container">
+    <view class="row">
+      <icon bindtap="closeDialog" class="image-close" type="cancel" size="25" />
+      <image class="image-sku" src="{{goods.imgUrl}}"></image>
+      <view class="column">
+        <text class="sku-price">￥{{goods.totalMoney}}</text>
+        <text class="sku-title">库存{{goods.buyRate}}件</text>
+        <text class="sku-title">商品编码：{{goods.goodsId}}</text>
       </view>
     </view>
+    <text class="border-line"></text>
+    <view class="row">
+      <text>购买数量</text>
+      <view class="quantity-position">
+        <!-- <template is="quantity" data="{{ ...quantity1}}" />   -->
+        <template is="quantity" data="{{ ...goods,index:1}}" />
+      </view>
+    </view>
+    <text class="border-line"></text>
+    <button data-goodid="{{goods.goodsId}}" class="button-addCar" bindtap="addCar" formType="submit">确定</button>
+  </view>
+</view>

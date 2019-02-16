@@ -17,6 +17,9 @@ Page({
     goodsHotItems: []
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function(options) {
     if (!wx.cloud) {
       wx.redirectTo({
@@ -24,7 +27,6 @@ Page({
       })
       return
     }
-
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -41,7 +43,6 @@ Page({
         }
       }
     })
-
     //读取数据库数据
     const db = wx.cloud.database()
     var that = this;
@@ -51,12 +52,8 @@ Page({
       data: {},
       success: res => {
         console.log(res.result.openid)
-
         //热销榜
-        db.collection('hots').where({
-            _openid: res.result.openid
-          })
-          .get({
+        db.collection('hots').get({
             success(result) {
               // res.data 是包含以上定义的两条记录的数组
               // console.log(result.data)
@@ -65,13 +62,10 @@ Page({
               })
               // console.log(that.data.goodsHotItems)
             }
-          })
+        })
 
         //商品目录
-        db.collection('goods').where({
-          _openid: res.result.openid
-        })
-          .get({
+        db.collection('goods').get({
             success(result) {
               // res.data 是包含以上定义的两条记录的数组
               console.log(result.data)
@@ -80,7 +74,7 @@ Page({
               })
               console.log(that.data.goodsWelfareItems)
             }
-          })
+        })
       },
       fail: err => {
         console.error('失败', err)
@@ -91,7 +85,17 @@ Page({
     })
   },
 
+  /**
+   * 生命周期函数--监听页面显示
+   */
   onShow: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
 
   },
 

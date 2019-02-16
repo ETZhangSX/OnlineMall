@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -42,6 +42,26 @@
 					"name": "detail",
 					"pathName": "pages/detail/detail",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "template",
+					"pathName": "pages/template/template",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "cart",
+					"pathName": "pages/cart/cart",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "userProfile",
+					"pathName": "pages/userProfile/userProfile",
 					"scene": null
 				}
 			]

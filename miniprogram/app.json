@@ -1,12 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/userConsole/userConsole",
+    "pages/userProfile/userProfile",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
     "pages/cart/cart",
     "pages/personal/personal",
     "pages/classify/classify",
