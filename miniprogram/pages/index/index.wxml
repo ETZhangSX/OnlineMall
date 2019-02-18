@@ -141,7 +141,7 @@
 </view> 
 
 <!--购物车-->
-<view class='tab-bar'>
+<view bindtap='toCart' class='tab-bar'>
       <!-- <image src="../../images/bottomNav/mine_select.png"/> 
       <p></p> -->
       <image src="../../images/cart.png"/> 

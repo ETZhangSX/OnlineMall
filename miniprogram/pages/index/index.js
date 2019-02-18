@@ -288,5 +288,12 @@ Page({
         ],
       })
     }, 500)
+  },
+
+  toCart: function() {
+    console.log("jump tp cart");
+    wx.navigateTo({
+      url: '../cart/cart',
+    });
   }
 })
