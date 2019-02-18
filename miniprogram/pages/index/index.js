@@ -64,7 +64,7 @@ Page({
             }
         })
 
-        //商品目录
+        //商品
         db.collection('goods').get({
             success(result) {
               // res.data 是包含以上定义的两条记录的数组

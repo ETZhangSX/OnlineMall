@@ -111,6 +111,12 @@ swiper-item image {
   padding: 0px 5px 0 5px;
 }
 
+.details .title {
+  justify-content: center;
+  text-align: center;
+  color: #a0a0a0;
+}
+
 .details image {
   width: 100%;
   display: block;

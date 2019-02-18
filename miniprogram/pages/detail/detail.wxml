@@ -33,6 +33,9 @@
 <!--商品图文详情-->
 <view class="details">
   <scroll-view scroll-y="true">
+    <view class="title">
+      <text>——图文详情——</text>
+    </view>
     <block wx:for-items="{{goods.detailImg}}" wx:key="name">
       <image class="image_detail" src="{{item}}" mode="widthFix" />
     </block>
