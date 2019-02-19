@@ -290,9 +290,9 @@ page{
 /**购物车和个人中心**/
 .tab-bar{
   width: 60px;
-  height: 48px;
+  height: 60px;
   background-color: rgb(235, 235, 235);
-  border-radius:5px;
+  border-radius:30px;
   border-color: #98989f;
   opacity:0.7;
   position: fixed; 
@@ -301,12 +301,12 @@ page{
   right: 8px;
   display: flex;
   justify-content:center;
+  align-items: center;
 }
 .tab-bar image{
-  height: 60%;
-  width: 50%;
+  height: 40px;
+  width: 40px;
   margin: 0px auto; 
-  margin-top: 15%;
 }
 .tab-bar p{
   border:1rpx solid #888; 
