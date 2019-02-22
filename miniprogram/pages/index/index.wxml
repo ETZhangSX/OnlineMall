@@ -4,12 +4,7 @@
 
   <!-- 用户 openid -->
   <!-- <view class="userinfo">
-    <button 
-      open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo"
-      class="userinfo-avatar"
-      style="background-image: url({{avatarUrl}})"
-    ></button>
+    
     <view>
       <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
     </view>
@@ -54,6 +49,12 @@
     <view class="placeholder">
       <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
     </view>
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
     <!--商品分类按钮-->
     <!-- <button class="wxSearch-button" bindtap="onAddHotsData">
       <text> Categories </text>
@@ -91,10 +92,11 @@
           class="goods-item" 
           catchtap="catchTapCategory" 
           data-type="{{item.name}}" 
-          data-typeid="{{item.typeId}}">
+          data-goodsid="{{item._id}}"
+          data-dbname='hots'>
               <image src="{{item.imageurl}}" class="goods-image" />   
             <text>{{item.name}}</text>
-            <p>￥{{item.newprice}}</p>  
+            <p>￥{{item.privilegePrice}}</p>  
           </view>
         </block> 
       </view>
@@ -114,7 +116,12 @@
   <scroll-view scroll-y="true">
       <view class="welfares">
          <block wx:for-items="{{goodsWelfareItems}}" wx:key="name">
-          <view class="welfares-good" catchtap="catchTapCategory" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+          <view 
+          class="welfares-good" 
+          catchtap="catchTapCategory" 
+          data-type="{{item.name}}" 
+          data-goodsid="{{item._id}}" 
+          data-dbname='goods'>
             <view>
               <image src="{{item.imageurl}}" class="welfares-image" mode="widthFix"/> 
             </view>
@@ -122,8 +129,8 @@
               {{item.name}}
             </view>
             <view class="product-price-wrap">
-              <p class="product-price-new">￥{{item.newprice}}</p>  
-              <p class="product-price-old">￥{{item.oldprice}}</p> 
+              <p class="product-price-new">￥{{item.privilegePrice}}</p>  
+              <p class="product-price-old">￥{{item.price}}</p> 
               <p class="discount">{{item.discount}}折</p>  
             </view>
             

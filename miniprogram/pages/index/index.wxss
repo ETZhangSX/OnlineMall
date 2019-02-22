@@ -28,11 +28,11 @@ page{
 }
 
 .userinfo-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  margin: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  margin: 10rpx;
   border-radius: 50%;
-  background-size: cover;
+  background-size: 100%;
   background-color: white;
 }
 

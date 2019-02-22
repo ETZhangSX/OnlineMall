@@ -1,65 +1,55 @@
 // pages/detail/detail.js
 var goods = null;
+var goodsId = null;
+var dbName = null;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      "https://m.360buyimg.com/n12/jfs/t11317/108/1080677336/325163/f4c2a03a/59fd8b17Nbe2fcca3.jpg!q70.jpg",
-      "https://m.360buyimg.com/n12/jfs/t11575/282/348533702/60173/d75cd1cc/59edb8d6N688b420f.jpg!q70.jpg",
-      "https://m.360buyimg.com/n12/jfs/t11536/279/360605865/15194/442cab0b/59edb8d3N163a7608.jpg!q70.jpg",
-      "https://m.360buyimg.com/n12/s750x750_jfs/t9733/126/2033941175/68120/a4eb4468/59edb8d6N37bea6f7.jpg!q70.jpg",
-      "https://m.360buyimg.com/n12/s750x750_jfs/t10744/195/2053933852/71608/94425578/59edb8d6Ne28c70ff.jpg!q70.jpg"
-    ],
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔,3s
     duration: 1000, //  滑动动画时长1s
-    detailImg: [
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_0_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_500_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_1000_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_1500_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_2000_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_2500_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_3000_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_3500_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_4000_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_4500_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_5000_750_500&imageView&thumbnail=710x0&quality=85",
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_5500_750_500&imageView&thumbnail=710x0&quality=85",
 
-      "https://haitao.nosdn1.127.net/8b8f60cb94b148e485dd50934e35ecca1511959468798jal1mola10610.jpg?imageView&quality=98&crop=0_6000_750_500&imageView&thumbnail=710x0&quality=85",
-
-      "https://haitao.nos.netease.com/a108a6ae73914a91b7e07b8cc0ad32ad1511959470997jal1mqad10611.jpg?imageView&quality=98&crop=0_7500_750_500&imageView&thumbnail=710x0&quality=85",
-
-      "https://haitao.nos.netease.com/a108a6ae73914a91b7e07b8cc0ad32ad1511959470997jal1mqad10611.jpg?imageView&quality=98&crop=0_8000_750_500&imageView&thumbnail=710x0&quality=85",
-
-      "https://haitao.nos.netease.com/a108a6ae73914a91b7e07b8cc0ad32ad1511959470997jal1mqad10611.jpg?imageView&quality=98&crop=0_8500_750_500&imageView&thumbnail=710x0&quality=85",
-
-      "https://haitao.nos.netease.com/a108a6ae73914a91b7e07b8cc0ad32ad1511959470997jal1mqad10611.jpg?imageView&quality=98&crop=0_9000_750_500&imageView&thumbnail=710x0&quality=85",
-
-      "https://haitao.nos.netease.com/a108a6ae73914a91b7e07b8cc0ad32ad1511959470997jal1mqad10611.jpg?imageView&quality=98&crop=0_9500_750_376&imageView&thumbnail=710x0&quality=85",
-    ],
-    quantity1: {
-      quantity: 1,
-      min: 1,
-      max: 20,
-      delStatus: 'disabled',
-      addStatus: 'normal'
-    },
     goods: null,
     isLike: false,
     showDialog: false,
-    totalMoney: 7935.84,
-    buyRate: 20,
-    goodsId: 1456778788,
-    name: "Apple iPhone X手机 苹果x 全网通4G 全面屏手机 银色 官方标配 256G",
-    price: 7935.84,
-    privilegePrice: 9018.00,
-    discount: 8.8,
-    imgUrl: "https://m.360buyimg.com/n12/jfs/t11317/108/1080677336/325163/f4c2a03a/59fd8b17Nbe2fcca3.jpg!q70.jpg"
+    totalMoney: 2698.00,
+  },
+
+  onWriteData: function() {
+    const db = wx.cloud.database();
+    var that = this;
+    var goodsItem = {
+      name: that.data.name,
+      price: that.data.price,
+      privilegePrice: that.data.privilegePrice,
+      discount: that.data.discount,
+      imgUrls: that.data.imgUrls,
+      detailImg: that.data.detailImg,
+      inStock: that.data.buyRate,
+      goodsId: that.data.goodsId,
+    }
+    // for (var i = 0; i < this.data.goodsWelfareItems.length; i++) {
+    db.collection('goods').add({
+      data: goodsItem,
+      success: res => {
+        // 在返回结果中会包含新创建的记录的 _id
+        wx.showToast({
+          title: '成功',
+        })
+        console.log(res)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '新增记录失败'
+        })
+        console.error('失败：', err)
+      }
+    })
+    // }
   },
 
   /**
@@ -67,6 +57,10 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    goodsId = options.goodsId;
+    dbName = options.dbName;
+    console.log(goodsId);
+    console.log(dbName);
     that.goodsInfoShow();
   },
 
@@ -131,36 +125,36 @@ Page({
   //
   goodsInfoShow: function(success) {
     var that = this;
-    var goodsItem = {
-      name: that.data.name,
-      price: that.data.price,
-      privilegePrice: that.data.privilegePrice,
-      discount: that.data.discount,
-      imgUrl: that.data.imgUrl,
-      buyRate: that.data.buyRate,
-      goodsId: that.data.goodsId,
-      count: 1,
-      totalMoney: that.data.price,
-    }
+    const db = wx.cloud.database();
+    var goodsItem = null;
 
-    goods = {
-      imgUrls: that.data.imgUrls,
-      title: goodsItem.name,
-      price: goodsItem.price,
-      privilegePrice: goodsItem.privilegePrice,
-      discount: goodsItem.discount,
-      detailImg: that.data.detailImg,
-      imgUrl: goodsItem.imgUrl,
-      buyRate: goodsItem.buyRate,
-      goodsId: goodsItem.goodsId,
-      count: 1,
-      totalMoney: goodsItem.price,
-    }
+    db.collection(dbName).doc(goodsId).get({
+      success(res) {
+        goodsItem = res.data;
+        console.log(goodsItem);
+        goods = {
+          imgUrls: goodsItem.imgUrls,
+          title: goodsItem.title,
+          price: goodsItem.price,
+          privilegePrice: goodsItem.privilegePrice,
+          discount: goodsItem.discount,
+          detailImg: goodsItem.detailImg,
+          imgUrl: goodsItem.imageurl,
+          buyRate: goodsItem.inStock, //库存
+          goodsId: goodsItem.goodsId,
+          count: 1,
+          totalMoney: goodsItem.price,
+        }
 
-    that.setData({
-      goods: goods
+        console.log(goods);
+        that.setData({
+          goods: goods
+        })
+      }
     })
-    console.log(goods.title);
+
+
+
   },
 
   // 立即购买

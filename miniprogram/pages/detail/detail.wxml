@@ -1,6 +1,10 @@
 <!--pages/detail/detail.wxml-->
 <import src="../template/template.wxml" />
-<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+<swiper 
+indicator-dots="{{indicatorDots}}" 
+autoplay="{{autoplay}}" 
+interval="{{interval}}" 
+duration="{{duration}}">
   <block wx:for="{{goods.imgUrls}}">
     <swiper-item>
       <image src="{{item}}" data-src="{{item}}" bindtap="previewImage" mode="widthFix"></image>
@@ -9,10 +13,10 @@
 </swiper>
 
 <!--图文详情按钮-->
-<view class='tab-bar-detail'>
+<!-- <view class='tab-bar-detail'>
   <text>图文</text>
   <text>详情</text>
-</view>
+</view> -->
 
 <view class="product-price-wrap">
   <view class="product-price">
