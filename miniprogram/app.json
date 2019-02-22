@@ -4,8 +4,8 @@
     "pages/userProfile/userProfile",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
+    "pages/searchResult/searchResult",
     "pages/cart/cart",
-    "pages/personal/personal",
     "pages/classify/classify",
     "pages/detail/detail",
     "pages/template/template",
@@ -16,7 +16,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "数据库_网上商城",
     "navigationBarTextStyle": "black"
   }
 }

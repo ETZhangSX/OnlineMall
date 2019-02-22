@@ -35,11 +35,11 @@
 <view class="separate"></view>
 <view class="person-list">
 
-  <view class="list-item">
+  <!-- <view class="list-item">
     <image class="item-image" src="../../images/person/personal_card.png"></image>
     <text class="item-text">优惠券</text>
-  </view>
-  <view class="person-line"></view>
+  </view> -->
+  <!-- <view class="person-line"></view> -->
   <view class="list-item">
     <image class="item-image" src="../../images/person/personal_favorite.png"></image>
     <text class="item-text">我的收藏</text>
@@ -49,20 +49,20 @@
     <image class="item-image" src="../../images/person/personal_site.png"></image>
     <text class="item-text" bindtap="myAddress">收货地址</text>
   </view>
-  <view class="person-line"></view>
+  <!-- <view class="person-line"></view>
   <view class="list-item">
     <image class="item-image" src="../../images/person/personal_sale_record.png"></image>
     <text class="item-text">售后记录</text>
-  </view>
-  <view class="person-line"></view>
+  </view> -->
+  <!-- <view class="person-line"></view>
   <view class="list-item">
     <image class="item-image" src="../../images/person/personal_evaluated.png"></image>
     <text class="item-text">我的评价</text>
-  </view>
-  <view class="person-line"></view>
+  </view> -->
+  <!-- <view class="person-line"></view>
   <view class="list-item">
     <image class="item-image" src="../../images/person/personal_customer.png"></image>
     <text class="item-text">在线客服</text>
-  </view>
+  </view> -->
 </view>
 <view class="separate"></view>

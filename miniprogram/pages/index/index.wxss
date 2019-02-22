@@ -1,5 +1,4 @@
 /**index.wxss**/
-@import "/wxSearch/wxSearch.wxss";
 
 /* page {
   background: #f6f6f6;
@@ -28,9 +27,9 @@ page{
 }
 
 .userinfo-avatar {
-  width: 60rpx;
-  height: 60rpx;
-  margin: 10rpx;
+  width: 76rpx;
+  height: 76rpx;
+  margin: 3rpx;
   border-radius: 50%;
   background-size: 100%;
   background-color: white;
@@ -49,6 +48,10 @@ page{
 
 .userinfo-nickname::after {
   border: none;
+}
+
+.searchbar {
+  flex-direction: row;
 }
 
 .uploader, .tunnel {
