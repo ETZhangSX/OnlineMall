@@ -29,34 +29,12 @@
   </text>
 </view>
 
-<!--实时热销榜 start-->
-<view class="hots-container">
-  <view class="category-title">
-    <text class="title">热销榜</text>
-    <view class="line_name">
-      <text>每15分钟更新一次</text>
-      <text>查看全部 ></text>
-    </view>
-  </view>
-  <scroll-view scroll-x="true">
-    <view class="goods">
-      <block wx:for-items="{{goodsHotItems}}" wx:key="name">
-        <view class="goods-item" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='hots'>
-          <image src="{{item.imageurl}}" class="goods-image" />
-          <text>{{item.name}}</text>
-          <p>￥{{item.privilegePrice}}</p>
-        </view>
-      </block>
-    </view>
-  </scroll-view>
-</view>
-<!--实时热销榜 end-->
 
-<!--福利专场 start-->
+<!--男装专场 start-->
 
 <view class="welfare-container">
   <view class="category-title">
-    <text class="title">福利专场</text>
+    <text class="title">男装专场</text>
     <view class="line_name">
       <text>每天早10晚8准时上新</text>
     </view>
@@ -82,7 +60,7 @@
     </view>
   </scroll-view>
 </view>
-<!--福利专场 end-->
+<!--男装专场 end-->
 
 <!--下拉加载-->
 <view class="weui-loadmore" hidden="{{isHideLoadMore}}">

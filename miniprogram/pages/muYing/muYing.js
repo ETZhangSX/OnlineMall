@@ -10,7 +10,7 @@ Page({
     requestResult: '',
     openid: '123',
     navbar: ['推荐', '男装', '海淘', '电器', '母婴', '居家'],
-    currentTab: 0,
+    currentTab: 4,
     // 热销榜
     goodsWelfareItems: [],
 
@@ -20,7 +20,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -86,18 +86,18 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
-  onAddHotsData: function() {
+  onAddHotsData: function () {
     const db = wx.cloud.database()
     for (var i = 0; i < this.data.goodsWelfareItems.length; i++) {
       db.collection('goods').add({
@@ -120,7 +120,7 @@ Page({
     }
   },
 
-  onGetUserInfo: function(e) {
+  onGetUserInfo: function (e) {
     if (!this.logged && e.detail.userInfo) {
       this.setData({
         logged: true,
@@ -134,7 +134,7 @@ Page({
   },
 
   //跳转到详情页
-  catchTapCategory: function(e) {
+  catchTapCategory: function (e) {
     var that = this;
     var goodsId = e.currentTarget.dataset.goodsid;
     var dbName = e.currentTarget.dataset.dbname;
@@ -147,7 +147,7 @@ Page({
     })
   },
 
-  onGetOpenid: function() {
+  onGetOpenid: function () {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -169,13 +169,13 @@ Page({
   },
 
   // 上传图片
-  doUpload: function() {
+  doUpload: function () {
     // 选择图片
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
-      success: function(res) {
+      success: function (res) {
 
         wx.showLoading({
           title: '上传中',
@@ -219,12 +219,12 @@ Page({
   },
 
   // 导航切换监听
-  navbarTap: function(e) {
+  navbarTap: function (e) {
     console.debug(e);
     this.setData({
       currentTab: e.currentTarget.dataset.idx
-  })
-    
+    })
+
     console.info(e.currentTarget.dataset.idx)
     if (e.currentTarget.dataset.idx == 1) {
       wx.navigateTo({
@@ -238,7 +238,7 @@ Page({
       })
     }
 
-     if (e.currentTarget.dataset.idx == 3) {
+    if (e.currentTarget.dataset.idx == 3) {
       wx.navigateTo({
         url: '../dianQi/dianQi',
       })
@@ -258,7 +258,7 @@ Page({
 
 
 
-  
+
   },
   //加载更多
   // onReachBottom: function() {
@@ -270,14 +270,14 @@ Page({
   //   }, 500)
   // },
 
-  toCart: function() {
+  toCart: function () {
     console.log("jump tp cart");
     wx.navigateTo({
       url: '../cart/cart',
     });
   },
 
-  onSearch: function(e) {
+  onSearch: function (e) {
     var searchKey = e.detail;
     console.log(searchKey);
     //防止未输入关键字即跳转
