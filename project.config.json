@@ -10,7 +10,7 @@
 	},
 	"appid": "wxfba79ad61aebfbd8",
 	"projectname": "database-test",
-	"libVersion": "2.2.5",
+	"libVersion": "2.4.0",
 	"compileType": "miniprogram",
 	"condition": {
 		"search": {

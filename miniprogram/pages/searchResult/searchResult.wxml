@@ -1,4 +1,5 @@
 <!--pages/searchResult/searchResult.wxml-->
+<!--搜索框-->
 <van-search
   value="{{ value }}"
   placeholder="请输入搜索关键词"
@@ -7,3 +8,31 @@
 >
   <view slot="action" bind:tap="onSearch">搜索</view>
 </van-search>
+
+<!--搜索结果-->
+
+<view class="welfare-container">
+  <view class="category-title">
+    <text class="title">搜索“{{search_Key}}”结果</text>
+  </view>
+  <scroll-view scroll-y="true">
+    <view class="welfares">
+      <block wx:for-items="{{result}}" wx:key="name">
+        <view class="welfares-good" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='goods'>
+          <view>
+            <image src="{{item.imageurl}}" class="welfares-image" mode="widthFix" />
+          </view>
+          <view class="product-name">
+            {{item.name}}
+          </view>
+          <view class="product-price-wrap">
+            <p class="product-price-new">￥{{item.privilegePrice}}</p>
+            <p class="product-price-old">￥{{item.price}}</p>
+            <p class="discount">{{item.discount}}折</p>
+          </view>
+
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>
