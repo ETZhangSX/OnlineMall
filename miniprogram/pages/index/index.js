@@ -84,9 +84,16 @@ Page({
             //商品
             db.collection('goods').get({
               success(result) {
-                // res.data 是包含以上定义的两条记录的数组
+                var goodsInfo = result.data;
+                for (var i in goodsInfo) {
+                  //商品名称长度处理
+                  var name = goodsInfo[i].name;
+                  if (name.length > 27) {
+                    goodsInfo[i].name = name.substring(0, 24) + '...';
+                  }
+                }
                 that.setData({
-                  goodsWelfareItems: result.data
+                  goodsWelfareItems: goodsInfo
                 })
                 console.log(that.data.goodsWelfareItems)
               }
@@ -100,10 +107,6 @@ Page({
             })
           }
         })
-
-        //加载首组图片
-        // this.loadImages();
-        // this.brandShow();
       }
     })
 
@@ -121,29 +124,6 @@ Page({
    */
   onShareAppMessage: function() {
 
-  },
-
-  onAddHotsData: function() {
-    const db = wx.cloud.database()
-    for (var i = 0; i < this.data.goodsWelfareItems.length; i++) {
-      db.collection('goods').add({
-        data: this.data.goodsWelfareItems[i],
-        success: res => {
-          // 在返回结果中会包含新创建的记录的 _id
-          wx.showToast({
-            title: '成功',
-          })
-          console.log(res)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '新增记录失败'
-          })
-          console.error('失败：', err)
-        }
-      })
-    }
   },
 
   onGetUserInfo: function(e) {
@@ -165,8 +145,6 @@ Page({
     var goodsId = e.currentTarget.dataset.goodsid;
     var dbName = e.currentTarget.dataset.dbname;
     console.log('goodsId:' + goodsId);
-    //新增商品用户点击数量
-    // that.goodsClickShow(goodsId);
     //跳转商品详情
     wx.navigateTo({
       url: '../detail/detail?goodsId=' + goodsId + '&dbName=' + dbName
