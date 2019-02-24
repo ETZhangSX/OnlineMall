@@ -54,37 +54,6 @@ page{
   flex-direction: row;
 }
 
-.uploader, .tunnel {
-  height: auto;
-  padding: 0 0 0 40rpx;
-  flex-direction: column;
-  align-items: flex-start;
-  box-sizing: border-box;
-}
-
-.uploader-text, .tunnel-text {
-  width: 100%;
-  line-height: 52px;
-  font-size: 34rpx;
-  color: #007aff;
-}
-
-.uploader-container {
-  width: 100%;
-  height: 400rpx;
-  padding: 20rpx 20rpx 20rpx 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.uploader-image {
-  width: 100%;
-  height: 360rpx;
-}
-
 .tunnel {
   padding: 0 0 0 40rpx;
 }
@@ -316,3 +285,53 @@ page{
   height: 95%;
   display: inline-block;
 }
+
+.img_item-brand {
+  width: 48.5%;
+  margin: 2px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #ffffff;
+  font-size: 24rpx;
+
+}
+.item_info-brand{
+   border-top:5px solid #F3F4F6; 
+}
+.product-name-brand{
+  color: #000;
+  /* height: 28px; */
+  text-align:left;
+   margin: 0px 5px; 
+   margin-bottom: 5px; 
+}
+.product-price-wrap-brand .product-price-new-brand{
+  color: #e80080;
+  margin-left:5px;
+  font-weight:900;
+}
+.product-price-wrap-brand .product-price-old-brand{
+  color: #888;
+  text-decoration: line-through;
+  padding-left: 2px;
+}
+.product-price-wrap-brand .discount-brand{
+  margin-left: 30px;
+  background-color: #000;
+  color: #fff;
+}
+
+/*  加载更多   */
+
+/* .weui-loadmore {
+  width: 65%;
+  margin: 1.5em auto;
+  line-height: 1.6em;
+  font-size: 12px;
+  text-align: center;
+}
+.weui-loadmore__tips {
+  display: inline-block;
+  vertical-align: middle;
+  color: #888;
+} */

@@ -9,11 +9,7 @@
   </view> -->
 
 <!--搜索框-->
-<van-search 
-  value="{{ value }}" 
-  placeholder="请输入搜索关键词" 
-  use-action-slot 
-  bind:search="onSearch">
+<van-search value="{{ value }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
   <view slot="action">
     <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{avatarUrl}})"></button>
   </view>
@@ -24,67 +20,113 @@
   <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}
   </text>
 </view>
-
-<!--实时热销榜 start-->
-<view class="hots-container">
-  <view class="category-title">
-    <text class="title">热销榜</text>
-    <view class="line_name">
-      <text>每15分钟更新一次</text>
-      <text>查看全部 ></text>
+<view wx:if="{{currentTab==indexTab}}">
+  <!--实时热销榜 start-->
+  <view class="hots-container">
+    <view class="category-title">
+      <text class="title">热销榜</text>
+      <view class="line_name">
+        <text>每15分钟更新一次</text>
+        <text>查看全部 ></text>
+      </view>
     </view>
-  </view>
-  <scroll-view scroll-x="true">
-    <view class="goods">
-      <block wx:for-items="{{goodsHotItems}}" wx:key="name">
-        <view class="goods-item" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='hots'>
-          <image src="{{item.imageurl}}" class="goods-image" />
-          <text>{{item.name}}</text>
-          <p>￥{{item.privilegePrice}}</p>
-        </view>
-      </block>
-    </view>
-  </scroll-view>
-</view>
-<!--实时热销榜 end-->
-
-<!--福利专场 start-->
-
-<view class="welfare-container">
-  <view class="category-title">
-    <text class="title">福利专场</text>
-    <view class="line_name">
-      <text>每天早10晚8准时上新</text>
-    </view>
-  </view>
-  <scroll-view scroll-y="true">
-    <view class="welfares">
-      <block wx:for-items="{{goodsWelfareItems}}" wx:key="name">
-        <view class="welfares-good" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='goods'>
-          <view>
-            <image src="{{item.imageurl}}" class="welfares-image" mode="widthFix" />
+    <scroll-view scroll-x="true">
+      <view class="goods">
+        <block wx:for-items="{{goodsHotItems}}" wx:key="name">
+          <view class="goods-item" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='hots'>
+            <image src="{{item.imageurl}}" class="goods-image" />
+            <text>{{item.name}}</text>
+            <p>￥{{item.privilegePrice}}</p>
           </view>
-          <view class="product-name">
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!--实时热销榜 end-->
+
+  <!--福利专场 start-->
+
+  <view class="welfare-container">
+    <view class="category-title">
+      <text class="title">福利专场</text>
+      <view class="line_name">
+        <text>每天早10晚8准时上新</text>
+      </view>
+    </view>
+    <scroll-view scroll-y="true">
+      <view class="welfares">
+        <block wx:for-items="{{goodsWelfareItems}}" wx:key="name">
+          <view class="welfares-good" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='goods'>
+            <view>
+              <image src="{{item.imageurl}}" class="welfares-image" mode="widthFix" />
+            </view>
+            <view class="product-name">
+              {{item.name}}
+            </view>
+            <view class="product-price-wrap">
+              <p class="product-price-new">￥{{item.privilegePrice}}</p>
+              <p class="product-price-old">￥{{item.price}}</p>
+              <p class="discount">{{item.discount}}折</p>
+            </view>
+
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!--福利专场 end-->
+
+  <!--下拉加载-->
+  <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">努力加载中</view>
+  </view>
+</view>
+<block wx:else>
+  <scroll-view scroll-y="true" style="height:{{scrollH}}px" bindscrolltolower="brandShow">
+    <view class="goods" style="width:100%">
+      <view class="img_item-brand">
+        <view wx:for="{{col1}}" wx:key="id">
+          <view class="item_info-brand" catchtap="catchTapCategory" data-goodsid="{{item._id}}" data-dbName='goods'>
+            <image src="{{item.imageurl}}" style="width:100%;height:{{item.height}}px"></image>
+          </view>
+          <view class="product-name-brand">
             {{item.name}}
           </view>
-          <view class="product-price-wrap">
-            <p class="product-price-new">￥{{item.privilegePrice}}</p>
-            <p class="product-price-old">￥{{item.price}}</p>
-            <p class="discount">{{item.discount}}折</p>
+          <view class="product-price-wrap-brand">
+            <p class="product-price-new-brand">￥{{item.price}}</p>
+            <p class="product-price-old-brand">￥{{item.privilegePrice}}</p>
+            <p class="discount-brand">{{item.discount}}折</p>
           </view>
-
         </view>
-      </block>
+      </view>
+      <view class="img_item-brand">
+        <view wx:for="{{col2}}" wx:key="id">
+          <view class="item_info-brand" catchtap="catchTapCategory" data-goodsid="{{item._id}}" data-dbName='goods'>
+            <image src="{{item.imageurl}}" style="width:100%;height:{{item.height}}px"></image>
+          </view>
+          <view class="product-name-brand">
+            {{item.name}}
+          </view>
+          <view class="product-price-wrap-brand">
+            <p class="product-price-new-brand">￥{{item.price}}</p>
+            <p class="product-price-old-brand">￥{{item.privilegePrice}}</p>
+            <p class="discount-brand">{{item.discount}}折</p>
+          </view>
+        </view>
+      </view>
     </view>
   </scroll-view>
-</view>
-<!--福利专场 end-->
 
-<!--下拉加载-->
-<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
-  <view class="weui-loading"></view>
-  <view class="weui-loadmore__tips">努力加载中</view>
-</view>
+  <view style="display:none">
+    <image wx:for="{{brandGoods}}" wx:key="id" id="{{item._id}}" src="{{item.imageurl}}" bindload="onImageLoad1"></image>
+  </view>
+
+  <view class="weui-loadmore" hidden="{{hidden}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">努力加载中</view>
+  </view>
+</block>
 
 <!--购物车-->
 <view bindtap='toCart' class='tab-bar'>

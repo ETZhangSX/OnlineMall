@@ -1,6 +1,7 @@
 //index.js
 const app = getApp()
-
+var sectionData = [];
+var activityId = null;
 Page({
   data: {
     avatarUrl: './user-unlogin.png',
@@ -11,10 +12,17 @@ Page({
     openid: '123',
     navbar: ['推荐', '男装', '海淘', '电器', '母婴', '居家'],
     currentTab: 0,
+    indexTab: 0,
     // 热销榜
     goodsWelfareItems: [],
 
-    goodsHotItems: []
+    goodsHotItems: [],
+    scrollH: 0,
+    imgWidth: 0,
+    loadingCount: 0,
+    images: [],
+    col1: [],
+    col2: []
   },
 
   /**
@@ -43,44 +51,62 @@ Page({
         }
       }
     })
-    //读取数据库数据
-    const db = wx.cloud.database()
-    var that = this;
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log(res.result.openid)
-        //热销榜
-        db.collection('hots').get({
-          success(result) {
-            // res.data 是包含以上定义的两条记录的数组
-            that.setData({
-              goodsHotItems: result.data
+    wx.getSystemInfo({
+      success: (res) => {
+        let ww = res.windowWidth;
+        let wh = res.windowHeight;
+        let imgWidth = ww * 0.48;
+        let scrollH = wh;
+
+        this.setData({
+          scrollH: scrollH,
+          imgWidth: imgWidth
+        });
+        //读取数据库数据
+        const db = wx.cloud.database()
+        var that = this;
+        wx.cloud.callFunction({
+          name: 'login',
+          data: {},
+          success: res => {
+            console.log(res.result.openid)
+            //热销榜
+            db.collection('hots').get({
+              success(result) {
+                // res.data 是包含以上定义的两条记录的数组
+                that.setData({
+                  goodsHotItems: result.data
+                })
+                // console.log(that.data.goodsHotItems)
+              }
             })
-            // console.log(that.data.goodsHotItems)
+
+            //商品
+            db.collection('goods').get({
+              success(result) {
+                // res.data 是包含以上定义的两条记录的数组
+                that.setData({
+                  goodsWelfareItems: result.data
+                })
+                console.log(that.data.goodsWelfareItems)
+              }
+            })
+
+          },
+          fail: err => {
+            console.error('失败', err)
+            wx.navigateTo({
+              url: '../deployFunctions/deployFunctions',
+            })
           }
         })
 
-        //商品
-        db.collection('goods').get({
-          success(result) {
-            // res.data 是包含以上定义的两条记录的数组
-            that.setData({
-              goodsWelfareItems: result.data
-            })
-            console.log(that.data.goodsWelfareItems)
-          }
-        })
-
-      },
-      fail: err => {
-        console.error('失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
+        //加载首组图片
+        // this.loadImages();
+        // this.brandShow();
       }
     })
+
   },
 
   /**
@@ -168,62 +194,89 @@ Page({
     })
   },
 
-  // 上传图片
-  doUpload: function() {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function(res) {
+  onImageLoad1: function(e) {
+    let imageId = e.currentTarget.id;
+    let oImgW = e.detail.width; //图片原始宽度
+    let oImgH = e.detail.height; //图片原始高度
+    let imgWidth = this.data.imgWidth; //图片设置的宽度
+    let scale = imgWidth / oImgW;
+    let imgHeight = oImgH * scale; //自适应高度
 
-        wx.showLoading({
-          title: '上传中',
-        })
+    let images = this.data.brandGoods;
+    let imageObj = null;
 
-        const filePath = res.tempFilePaths[0]
+    for (let i = 0; i < images.length; i++) {
+      let img = images[i];
+      if (img._id + "" === imageId) {
+        imageObj = img;
+        break;
+      }
+    }
 
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
+    imageObj.height = imgHeight;
 
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
+    let loadingCount = this.data.loadingCount - 1;
+    let col1 = this.data.col1;
+    let col2 = this.data.col2;
 
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
-            })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
-          }
-        })
+    //判断当前图片添加到左列还是右列
+    if (col1.length <= col2.length) {
+      col1.push(imageObj);
+    } else {
+      col2.push(imageObj);
+    }
 
-      },
-      fail: e => {
-        console.error(e)
+    let data = {
+      loadingCount: loadingCount,
+      col1: col1,
+      col2: col2
+    };
+
+    //当前这组图片已加载完毕，则清空图片临时加载区域的内容
+    if (!loadingCount) {
+      data.images = [];
+    }
+
+    this.setData(data);
+  },
+
+  brandShow: function(success) {
+    var that = this;
+    const db = wx.cloud.database()
+    var currentTab = that.data.currentTab;
+    console.log("enter")
+    db.collection('goods').where({
+      type: currentTab.toString()
+    }).get({
+      success(res) {
+        console.log("success");
+        var newGoodsData = res.data;
+        sectionData['brandGoods'] = newGoodsData;
+        that.setData({
+          brandGoods: sectionData['brandGoods'],
+          loadingCount: sectionData['brandGoods'].length,
+        });
+        console.log(that.data.brandGoods)
+        wx.stopPullDownRefresh();
       }
     })
   },
-
   // 导航切换监听
   navbarTap: function(e) {
-    console.debug(e);
-    this.setData({
-      currentTab: e.currentTarget.dataset.idx
-    })
+    var that = this;
+    var tab = e.currentTarget.dataset.idx;
+    console.log(tab);
+    //防止重复触发
+    if (tab != that.data.currentTab) {
+      that.setData({
+        currentTab: tab,
+        col1: [],
+        col2: []
+      });
+      console.log(that.data.currentTab);
+      that.brandShow();
+    }
+
   },
   //加载更多
   // onReachBottom: function() {
