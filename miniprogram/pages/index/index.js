@@ -62,43 +62,15 @@ Page({
           scrollH: scrollH,
           imgWidth: imgWidth
         });
-        //读取数据库数据
-        const db = wx.cloud.database()
+
         var that = this;
         wx.cloud.callFunction({
           name: 'login',
           data: {},
           success: res => {
             console.log(res.result.openid)
-            //热销榜
-            db.collection('hots').get({
-              success(result) {
-                // res.data 是包含以上定义的两条记录的数组
-                that.setData({
-                  goodsHotItems: result.data
-                })
-                // console.log(that.data.goodsHotItems)
-              }
-            })
-
-            //商品
-            db.collection('goods').get({
-              success(result) {
-                var goodsInfo = result.data;
-                for (var i in goodsInfo) {
-                  //商品名称长度处理
-                  var name = goodsInfo[i].name;
-                  if (name.length > 27) {
-                    goodsInfo[i].name = name.substring(0, 24) + '...';
-                  }
-                }
-                that.setData({
-                  goodsWelfareItems: goodsInfo
-                })
-                console.log(that.data.goodsWelfareItems)
-              }
-            })
-
+            //渲染首页数据
+            that.showGoodsInfo();
           },
           fail: err => {
             console.error('失败', err)
@@ -109,13 +81,6 @@ Page({
         })
       }
     })
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
 
   },
 
@@ -137,6 +102,39 @@ Page({
         url: '../userProfile/userProfile',
       })
     }
+  },
+
+  showGoodsInfo: function(e) {
+    //读取云数据库
+    const db = wx.cloud.database()
+    var that = this;
+    //热销榜
+    db.collection('hots').get({
+      success(result) {
+        that.setData({
+          goodsHotItems: result.data
+        })
+        // console.log(that.data.goodsHotItems)
+      }
+    })
+
+    //商品
+    db.collection('goods').get({
+      success(result) {
+        var goodsInfo = result.data;
+        for (var i in goodsInfo) {
+          //商品名称长度处理
+          var name = goodsInfo[i].name;
+          if (name.length > 27) {
+            goodsInfo[i].name = name.substring(0, 24) + '...';
+          }
+        }
+        that.setData({
+          goodsWelfareItems: goodsInfo
+        })
+        console.log(that.data.goodsWelfareItems)
+      }
+    })
   },
 
   //跳转到详情页

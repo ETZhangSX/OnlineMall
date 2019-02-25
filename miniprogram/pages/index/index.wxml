@@ -28,7 +28,7 @@
           <view class="goods-item" catchtap="catchTapCategory" data-type="{{item.name}}" data-goodsid="{{item._id}}" data-dbname='hots'>
             <image src="{{item.imageurl}}" class="goods-image" />
             <text>{{item.name}}</text>
-            <p>￥{{item.privilegePrice}}</p>
+            <p>￥{{item.price}}</p>
           </view>
         </block>
       </view>
@@ -56,8 +56,8 @@
               {{item.name}}
             </view>
             <view class="product-price-wrap">
-              <p class="product-price-new">￥{{item.privilegePrice}}</p>
-              <p class="product-price-old">￥{{item.price}}</p>
+              <p class="product-price-new">￥{{item.price}}</p>
+              <p class="product-price-old">￥{{item.privilegePrice}}</p>
               <p class="discount">{{item.discount}}折</p>
             </view>
 
