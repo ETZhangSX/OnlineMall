@@ -1,4 +1,12 @@
 <!--pages/detail/detail.wxml-->
+<wxs module="we">
+  var toFixed = function (value) {
+  return value.toFixed(2);
+}
+module.exports = {
+   toFixed :toFixed
+}
+</wxs>
 <import src="../template/template.wxml" />
 <swiper 
 indicator-dots="{{indicatorDots}}" 
@@ -22,7 +30,7 @@ duration="{{duration}}">
   <view class="product-price">
     <p class="product-price-new">￥{{goods.price}}</p>
     <p class="product-price-old">原价￥{{goods.privilegePrice}}</p>
-    <p class="discount">{{goods.discount}}折</p>
+    <p class="discount">{{we.toFixed(goods.price*10/goods.privilegePrice)}}折</p>
   </view>
   <!-- <view class="share-icon">
     <image  src="../../images/share.png" />  

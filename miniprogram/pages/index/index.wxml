@@ -1,5 +1,12 @@
 <!--index.wxml-->
-
+<wxs module="we">
+  var toFixed = function (value) {
+  return value.toFixed(2);
+}
+module.exports = {
+   toFixed :toFixed
+}
+</wxs>
 <!--搜索框-->
 <van-search value="{{ value }}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch">
   <view slot="action">
@@ -58,7 +65,7 @@
             <view class="product-price-wrap">
               <p class="product-price-new">￥{{item.price}}</p>
               <p class="product-price-old">￥{{item.privilegePrice}}</p>
-              <p class="discount">{{item.discount}}折</p>
+              <p class="discount">{{we.toFixed(item.price*10/item.privilegePrice)}}折</p>
             </view>
 
           </view>
@@ -88,7 +95,7 @@
           <view class="product-price-wrap-brand">
             <p class="product-price-new-brand">￥{{item.price}}</p>
             <p class="product-price-old-brand">￥{{item.privilegePrice}}</p>
-            <p class="discount-brand">{{item.discount}}折</p>
+            <p class="discount-brand">{{we.toFixed(item.price*10/item.privilegePrice)}}折</p>
           </view>
         </view>
       </view>
@@ -103,7 +110,7 @@
           <view class="product-price-wrap-brand">
             <p class="product-price-new-brand">￥{{item.price}}</p>
             <p class="product-price-old-brand">￥{{item.privilegePrice}}</p>
-            <p class="discount-brand">{{item.discount}}折</p>
+            <p class="discount-brand">{{we.toFixed(item.price*10/item.privilegePrice)}}折</p>
           </view>
         </view>
       </view>
