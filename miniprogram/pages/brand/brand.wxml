@@ -1,3 +1,11 @@
+<wxs module="we">
+  var toFixed = function (value) {
+  return value.toFixed(2);
+}
+module.exports = {
+   toFixed :toFixed
+}
+</wxs>
 <scroll-view scroll-y="true" style="height:{{scrollH}}px" bindscrolltolower="brandShow">
   <view class="goods" style="width:100%">
     <view class="img_item">
@@ -11,7 +19,7 @@
             <view class="product-price-wrap">
               <p class="product-price-new">￥{{item.price}}</p>  
               <p class="product-price-old">￥{{item.privilegePrice}}</p> 
-               <p class="discount">{{item.discount}}折</p>   
+               <p class="discount">{{we.toFixed(item.price*10/item.privilegePrice)}}折</p>   
             </view>
       </view>
     </view>
